@@ -4,7 +4,6 @@ section {
     width: 500px;
     padding: 30px 50px;
     background-color: #ffff;
-    overflow: auto;
 }
 
 h1 {
@@ -22,6 +21,7 @@ ul {
 
 li > p {
     margin: 6px 0;
+    text-align: justify;
 }
 
 li > button {

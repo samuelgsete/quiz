@@ -2,6 +2,7 @@ div.pergunta {
     border-top: 3px solid var(--laranja);
     padding: 2px 0;
     margin: 10px 0;
+    text-align: justify
 }
 
 section {
@@ -15,7 +16,7 @@ section {
 
 p {
     font-size: 18px;
-    margin-bottom: 24px;
+    margin-bottom: 24px;;
 }
 
 div#quiz {

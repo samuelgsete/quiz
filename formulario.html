@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/base.css">
+        <link rel="stylesheet" href="./css/formulario.css">
+        <title>Criar pergunta</title>
+    </head>
+    <body>
+
+        <section>
+
+            <img src="./logo.png" alt="Logotipo" width="200px">        
+            <h1>Registrar pergunta</h1>
+            <p>Crie novas perguntas</p>
+
+            <form name="quiz" method="POST">
+
+                <div class="form-field">
+                    <label for="numero">Número</label>
+                    <input id="numero" type="number" name="numero" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="enunciado">Enunciado</label>
+                    <input id="enunciado" type="text" name="enunciado" required>
+                </div>
+
+                <div class="group-field">
+                    Alternativas da pergunta
+                </div>
+
+                <div class="form-field">
+                    <label for="itemA">Item A</label>
+                    <input id="itemA" type="text" name="itemA" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="itemB">Item B</label>
+                    <input id="itemB" type="text" name="itemB" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="itemC">Item C</label>
+                    <input id="itemC" type="text" name="itemC" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="itemD">Item D</label>
+                    <input id="itemD" type="text" name="itemD" required>
+                </div>
+
+                <div class="group-field">
+                    Selecione o gabarito da pergunta
+                </div>
+
+                <div class="form-field">
+                    <label for="gabarito">Gabarito</label>
+                    <select id="gabarito" name="gabarito" required>
+                        <option value="">selecione...</option>
+                        <option value="A">Item A</option>
+                        <option value="B">Item B</option>
+                        <option value="C">Item C</option>
+                        <option value="D">Item D</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Salvar</button>
+                <button class="btn btn-light" type="reset">Recomeçar</button>
+                <button class="btn btn-outline" type="button" onclick="verPerguntas()">Ver perguntas</button>
+            </form>
+            
+        </section>
+
+        <script src="./js/api.js"></script>
+
+        <script>
+
+            const quiz = document.forms['quiz'];
+            quiz.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const dados = new FormData(e.target);
+
+                const pergunta = {
+                    numero: parseInt(dados.get('numero')),
+                    enunciado: dados.get('enunciado'),
+                    alternativas: [
+                        { item: 'A', descricao: dados.get('itemA') },
+                        { item: 'B', descricao: dados.get('itemB') },
+                        { item: 'C', descricao: dados.get('itemC') },
+                        { item: 'D', descricao: dados.get('itemD') }
+                    ],
+                    gabarito: dados.get('gabarito')
+                }
+
+                if(await verificarNumeroQuestao(pergunta.numero)) {
+                    alert('Já existe uma pergunta com esse número, escolha outro número');
+                    return;
+                }
+
+                const resposta = await fetch(API_URL, {
+                    headers: { 'Content-Type': 'application/json' },
+                    method: 'POST',
+                    body: JSON.stringify(pergunta),
+                });
+
+                if(!resposta.ok) {
+                    alert('Erro ao concluir a inscrição');
+                    return;
+                }
+
+                alert('A pergunta foi registrada com sucesso!');
+                location.reload();
+            });
+
+            async function verificarNumeroQuestao(numero) {
+                const resposta = await fetch(`${API_URL}?numero=${numero}`);
+                const perguntas = await resposta.json();
+                if(perguntas == "Not found") { return false; }
+                return perguntas.length > 0;
+            }
+
+            function verPerguntas()
+            {
+                window.location.href = "perguntas.html";
+            }
+
+        </script>
+
+    </body>
+</html>

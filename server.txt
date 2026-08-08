@@ -1,0 +1,3 @@
+Comando para executar o servidor fake
+
+json-server --watch api.json --port 8000

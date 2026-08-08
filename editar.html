@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/base.css">
+        <link rel="stylesheet" href="./css/formulario.css">
+        <title>Editar pergunta</title>
+    </head>
+    <body onload="carregarPergunta()">
+
+        <section>
+
+            <img src="./logo.png" alt="Logotipo" width="200px">        
+            <h1>Editar pergunta</h1>
+            <p>Altere perguntas criadas</p>
+
+            <form name="quiz" method="POST">
+
+                <input type="hidden" name="id" readonly>
+
+                <div class="form-field">
+                    <label for="numero">Número</label>
+                    <input id="numero" type="number" name="numero" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="enunciado">Enunciado</label>
+                    <input id="enunciado" type="text" name="enunciado" required>
+                </div>
+
+                <div class="group-field">
+                    Alternativas da pergunta
+                </div>
+
+                <div class="form-field">
+                    <label for="itemA">Item A</label>
+                    <input id="itemA" type="text" name="itemA" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="itemB">Item B</label>
+                    <input id="itemB" type="text" name="itemB" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="itemC">Item C</label>
+                    <input id="itemC" type="text" name="itemC" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="itemD">Item D</label>
+                    <input id="itemD" type="text" name="itemD" required>
+                </div>
+
+                <div class="group-field">
+                    Selecione o gabarito da pergunta
+                </div>
+
+                <div class="form-field">
+                    <label for="gabarito">Gabarito</label>
+                    <select id="gabarito" name="gabarito" required>
+                        <option value="">selecione...</option>
+                        <option value="A">Item A</option>
+                        <option value="B">Item B</option>
+                        <option value="C">Item C</option>
+                        <option value="D">Item D</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Salvar</button>
+                <button class="btn btn-light" type="button" onclick="retornar()">Retornar</button>
+                <button class="btn btn-outline" type="button" onclick="novaPergunta()">Nova pergunta</button>
+            </form>
+            
+        </section>
+
+        <script src="./js/api.js"></script>
+
+        <script>
+    
+            const quiz = document.forms['quiz'];
+
+            quiz.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const dados = new FormData(e.target);
+
+                const id = dados.get('id');
+
+                const pergunta = {
+                    id: id,
+                    numero: parseInt(dados.get('numero')),
+                    enunciado: dados.get('enunciado'),
+                    alternativas: [
+                        { item: 'A', descricao: dados.get('itemA') },
+                        { item: 'B', descricao: dados.get('itemB') },
+                        { item: 'C', descricao: dados.get('itemC') },
+                        { item: 'D', descricao: dados.get('itemD') }
+                    ],
+                    gabarito: dados.get('gabarito')
+                }
+
+                const resposta = await fetch(`${API_URL}/${id}`, {
+                    headers: { 'Content-Type': 'application/json' },
+                    method: 'PUT',
+                    body: JSON.stringify(pergunta),
+                });
+
+                if(!resposta.ok) {
+                    alert('Erro ao concluir a inscrição');
+                    return;
+                }
+
+                alert('A pergunta foi editada com sucesso!');
+                location.reload();
+            });
+
+            async function carregarPergunta()
+            {
+                const id = localStorage.getItem('id_pergunta');
+                const resposta = await fetch(`${API_URL}/${id}`);
+                const pergunta = await resposta.json();
+                
+                const quiz = document.forms['quiz'];
+                quiz.id.value = pergunta.id;
+                quiz.numero.value = pergunta.numero;
+                quiz.enunciado.value = pergunta.enunciado;
+                quiz.gabarito.value = pergunta.gabarito;
+
+                quiz.itemA.value = pergunta.alternativas[0].descricao;
+                quiz.itemB.value = pergunta.alternativas[1].descricao;
+                quiz.itemC.value = pergunta.alternativas[2].descricao;
+                quiz.itemD.value = pergunta.alternativas[3].descricao;
+            }
+
+            function retornar()
+            {
+                localStorage.removeItem('id_pergunta');
+                window.location.href = 'perguntas.html';
+            }
+
+            function novaPergunta()
+            {
+                localStorage.removeItem('id_pergunta');
+                window.location.href = 'formulario.html';
+            }
+
+        </script>
+
+    </body>
+</html>

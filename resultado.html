@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/base.css">
+        <link rel="stylesheet" href="./css/resultado.css">
+        <title>Resultado do Quiz</title>
+    </head>
+    <body>
+        <section>
+            <img src="./logo.png" alt="Logotipo" width="200px"> 
+            <h1>Olá <span id="competidor">Competidor</span>&#128200;</h1>
+            <p>Esse foi o seu desempenho</p>
+        
+            <table>
+                <tr>
+                    <th>Acertos</th>
+                    <td id="acertos">0</td>
+                </tr>
+                <tr>
+                    <th>Erros</th>
+                    <td id="erros">0</td>
+                </tr>
+                <tr>
+                    <th>Nota final</th>
+                    <td id="nota">0.00</td>
+                </tr>
+            </table>
+
+            <button class="btn btn-outline" type="button" onclick="refazerTeste()">Refazer Teste</button>
+            <button class="btn btn-primary" type="button" onclick="sair()">Sair</button>
+
+        </section>
+
+        <script>
+
+            if(verificarLogin()) {
+                window.location.href = './login.html';
+            }
+
+            const competidor = localStorage.getItem('competidor');
+            const acertos = localStorage.getItem('acertos');
+            const erros = localStorage.getItem('erros');
+            const nota = localStorage.getItem('nota') || 0.00;
+
+            document.getElementById('competidor').innerText = competidor;
+            document.getElementById('acertos').innerText = acertos;
+            document.getElementById('erros').innerText = erros;
+            document.getElementById('nota').innerText = nota;
+
+            function verificarLogin() 
+            {
+                const competidor = localStorage.getItem('competidor');
+
+                if(!competidor) {
+                    window.location.href = './login.html';
+                    return;
+                }
+            }
+
+            function refazerTeste() {
+                window.location.href = './quiz.html';
+            }
+
+            function sair() {
+                localStorage.removeItem('acertos');
+                localStorage.removeItem('erros');
+                localStorage.removeItem('nota');
+                localStorage.removeItem('competidor');
+                window.location.href = './login.html';
+            }
+
+        </script>
+    </body>
+</html>

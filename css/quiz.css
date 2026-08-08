@@ -1,0 +1,23 @@
+div.pergunta {
+    border-top: 3px solid var(--laranja);
+    padding: 2px 0;
+    margin: 10px 0;
+}
+
+section {
+    text-align: center;
+    height: 100%;
+    width: 500px;
+    padding: 30px 50px;
+    background-color: #ffff;
+    overflow: auto;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 24px;
+}
+
+div#quiz {
+    text-align: start;
+}

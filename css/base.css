@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+@import url('./cores.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Rubik", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    background-color: var(--laranja-escuro-3);
+}
+
+button.btn {
+    width: 100%;
+    padding: 16px 0;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.4s;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+    margin: 12px 0;
+    border-radius: 6px;
+    max-height: 60px;
+}
+
+button.btn-primary {
+    background-color:var(--laranja-escuro-1);
+    color: var(--laranja-claro);
+    border: 2px solid var(--laranja-escuro-1);
+}
+
+button.btn-primary:hover {
+    background-color: var(--laranja-escuro-2);
+    border: 2px solid var(--laranja-escuro-2);
+}
+
+button.btn-light {
+    background-color:var(--laranja-claro);
+    color: var(--laranja-escuro-2);
+    border: 2px solid var(--laranja-claro);
+}
+
+button.btn-light:hover {
+    background-color:var(--laranja-claro-2);
+}
+
+button.btn-outline {
+    background-color:#ffffff;
+    color: var(--laranja-escuro-2);
+    border: 2px solid var(--laranja-escuro-2);
+}
+
+button.btn-outline:hover {
+    background-color:var(--laranja-claro-3);
+}
+
+button.btn-icon {
+    border: none;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 12px;
+    background-color: var(--laranja-claro);
+    color: var(--laranja);
+    transition: all 0.4s;
+}
+
+button.btn-icon:hover {
+    filter: brightness(95%);
+}
+
+.form-field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+    background-color: var(--laranja-claro);
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+    margin: 16px 0;
+}
+
+.form-field:focus-within label {
+    color: var(--laranja);
+    transition: all 0.4s;
+}
+
+.form-field > input, .form-field > select {
+    padding: 0 8px 4px 8px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid var(--laranja-claro-1);
+    font-size: 18px;
+    color: var(--laranja-escuro-4);
+    transition: all 0.4s;
+}
+
+.form-field > input:focus, .form-field > select:focus {
+    outline: none;
+    border-color:var(--laranja);
+}
+
+.form-field > label {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 8px 0 0 8px;
+    color: var(--laranja-escuro-3);
+}
+
+.form-field-checkbox {
+    margin: 8px 0;
+}
+
+.form-field-checkbox > input {
+    accent-color: var(--laranja);
+    transform: scale(130%);
+}
+
+.form-field-checkbox > label {
+    margin: 0 0 0 5px;
+}
+
+.form-field-radio {
+    margin: 8px 0;
+}
+
+.form-field-radio > label {
+    transition: all 0.3s;
+}
+
+.form-field-radio > label:hover {
+    color: var(--laranja-escuro-2);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.form-field-radio > input {
+    accent-color: var(--laranja);
+}
+
+.form-field-radio > div {
+    margin: 6px 0;
+    text-align: justify;
+}
+
+.group-field {
+    font-size: 18px;
+    padding: 4px;
+    border-bottom: 4px solid var(--laranja);
+}

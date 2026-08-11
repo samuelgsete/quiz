@@ -12,17 +12,25 @@
         <section>
             <img src="./logo.png" alt="Logotipo" width="200px"> 
             <p>Boa sorte <strong id="competidor">Competidor</strong>&#x1F340;</p>
-        
-            <div id="quiz">
-                <span>Carregando...</span>
-            </div>
 
-            <button class="btn btn-outline" type="button" onclick="concluirTeste()" >Concluir Teste</button>
+            <form name="quiz" method="POST">
+                <div id="quiz">
+                    <span>Carregando...</span>
+                </div>
+                <button class="btn btn-outline" type="submit">Concluir Teste</button>
+            </form>
+
         </section>
 
         <script src="./js/api.js"></script>
 
         <script>
+
+            const formulario = document.forms['quiz'];
+            formulario.addEventListener('submit', function (e) {
+                e.preventDefault();
+                concluirTeste();
+            });
 
             async function init()
             {
@@ -76,6 +84,7 @@
                         id="${id}" 
                         name="${name}" 
                         onclick="responderPergunta('${pergunta.id}', '${alternativa.item}', '${name}')"
+                        required
                     >
                     <label for="${id}">
                         ${alternativa.item}) ${alternativa.descricao}

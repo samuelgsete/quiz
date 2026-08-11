@@ -132,6 +132,10 @@ button.btn-icon:hover {
     transition: all 0.3s;
 }
 
+.form-field-radio > input[disabled] + label {
+    pointer-events: none;
+}
+
 .form-field-radio > label:hover {
     color: var(--laranja-escuro-2);
     cursor: pointer;

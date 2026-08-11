@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="./css/quiz.css">
         <title>Boa sorte :)</title>
     </head>
-    <body onload="carregarPerguntas()">
+    <body onload="init()">
 
         <section>
             <img src="./logo.png" alt="Logotipo" width="200px"> 
@@ -24,19 +24,28 @@
 
         <script>
 
-            async function carregarPerguntas() 
+            async function init()
+            {
+                const quiz = await carregarQuiz();
+                const perguntas = quiz.perguntas;
+                localStorage.setItem('perguntas', JSON.stringify(perguntas));
+                localStorage.setItem('total_perguntas', perguntas.length);
+                renderizarQuiz(perguntas);
+            }
+
+            async function carregarQuiz() 
             {
                 verificarLogin();
+
+                const quiz_selecionado = localStorage.getItem('quiz_selecionado');
                                                
-                const resposta = await fetch(API_URL);
+                const resposta = await fetch(`${API_URL}/${quiz_selecionado}`);
                 if(!resposta.ok) {
                     alert('Não foi possível carregar as perguntas do quiz');
                     return;
                 }
 
-                const perguntas = await resposta.json();
-                localStorage.setItem('total_perguntas', perguntas.length);
-                renderizarQuiz(perguntas);
+                return resposta.json();
             }
             
             function renderizarQuiz(perguntas) {
@@ -80,14 +89,9 @@
 
             async function responderPergunta(idPergunta, item, nameInput)
             {
-                const resposta = await fetch(`${API_URL}/${idPergunta}`);
+                const perguntas = JSON.parse(localStorage.getItem('perguntas'));
+                const pergunta = perguntas.find(pergunta => pergunta.id === idPergunta);
 
-                if(!resposta.ok) {
-                    alert('Não foi possível carregar as perguntas do quiz');
-                    return;
-                }
-
-                const pergunta = await resposta.json();
                 const acerto = pergunta.gabarito === item;              
                 const status = acerto ? '✅ Você acertou :)' : '❌ Você errou :(';
                 document.getElementById(`status-${pergunta.numero}`).innerHTML = status;

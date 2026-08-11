@@ -1,242 +1,365 @@
 [
-    {
+  {
+    "id": "1",
+    "titulo": "Aula 1 - Introdução ao HTML",
+    "perguntas": [
+      {
         "id": "1",
         "numero": 1,
         "enunciado": "Qual tecnologia a seguir não é um dos pilares para a construção de páginas WEB?",
         "alternativas": [
-            {
-                "item": "A",
-                "descricao": "HTML"
-            },
-            {
-                "item": "B",
-                "descricao": "CSS"
-            },
-            {
-                "item": "C",
-                "descricao": "JavaScript"
-            },
-            {
-                "item": "D",
-                "descricao": "SQL"
-            }
+          {
+            "item": "A",
+            "descricao": "HTML"
+          },
+          {
+            "item": "B",
+            "descricao": "CSS"
+          },
+          {
+            "item": "C",
+            "descricao": "JavaScript"
+          },
+          {
+            "item": "D",
+            "descricao": "SQL"
+          }
         ],
         "gabarito": "D"
-    },
-    {
+      },
+      {
         "id": "2",
         "numero": 2,
         "enunciado": "Qual a função do HTML em uma página WEB?",
         "alternativas": [
-            {
-                "item": "A",
-                "descricao": "Dar uma aparência agradável à página"
-            },
-            {
-                "item": "B",
-                "descricao": "Tornar a página reativa"
-            },
-            {
-                "item": "C",
-                "descricao": "Estruturar os elementos de uma página"
-            },
-            {
-                "item": "D",
-                "descricao": "Processar dados"
-            }
+          {
+            "item": "A",
+            "descricao": "Dar uma aparência agradável à página"
+          },
+          {
+            "item": "B",
+            "descricao": "Tornar a página reativa"
+          },
+          {
+            "item": "C",
+            "descricao": "Estruturar os elementos de uma página"
+          },
+          {
+            "item": "D",
+            "descricao": "Processar dados"
+          }
         ],
         "gabarito": "C"
-    },
-    {
+      },
+      {
         "id": "3",
         "numero": 3,
         "enunciado": "Qual a função do JavaScript em uma página WEB?",
         "alternativas": [
-            {
-                "item": "A",
-                "descricao": "Estruturar a página"
-            },
-            {
-                "item": "B",
-                "descricao": "Estilizar a página"
-            },
-            {
-                "item": "C",
-                "descricao": "Armazenar dados"
-            },
-            {
-                "item": "D",
-                "descricao": "Responder as interações do usuário"
-            }
+          {
+            "item": "A",
+            "descricao": "Estruturar a página"
+          },
+          {
+            "item": "B",
+            "descricao": "Estilizar a página"
+          },
+          {
+            "item": "C",
+            "descricao": "Armazenar dados"
+          },
+          {
+            "item": "D",
+            "descricao": "Responder as interações do usuário"
+          }
         ],
         "gabarito": "D"
-    },
-    {
+      },
+      {
         "id": "4",
         "numero": 4,
         "enunciado": "Uma aplicação Web geralmente envolve duas partes que se comunicam por meio de uma rede, trocando informações para executar suas funcionalidades. Quais são elas?",
         "alternativas": [
-            {
-                "item": "A",
-                "descricao": "HTML e CSS"
-            },
-            {
-                "item": "B",
-                "descricao": "Cliente e Servidor"
-            },
-            {
-                "item": "C",
-                "descricao": "JavaScript e Java"
-            },
-            {
-                "item": "D",
-                "descricao": "Internet e Intranet"
-            }
+          {
+            "item": "A",
+            "descricao": "HTML e CSS"
+          },
+          {
+            "item": "B",
+            "descricao": "Cliente e Servidor"
+          },
+          {
+            "item": "C",
+            "descricao": "JavaScript e Java"
+          },
+          {
+            "item": "D",
+            "descricao": "Internet e Intranet"
+          }
         ],
         "gabarito": "B"
-    },
-    {
+      },
+      {
         "id": "5",
         "numero": 5,
         "enunciado": "A comunicação entre frontend e backend ocorre por meio do modelo de requisição e resposta. Qual protocolo é utilizado nessa comunicação?",
         "alternativas": [
-            {
-                "item": "A",
-                "descricao": "HTTP"
-            },
-            {
-                "item": "B",
-                "descricao": "URL"
-            },
-            {
-                "item": "C",
-                "descricao": "JavaScript"
-            },
-            {
-                "item": "D",
-                "descricao": "IP"
-            }
+          {
+            "item": "A",
+            "descricao": "HTTP"
+          },
+          {
+            "item": "B",
+            "descricao": "URL"
+          },
+          {
+            "item": "C",
+            "descricao": "JavaScript"
+          },
+          {
+            "item": "D",
+            "descricao": "IP"
+          }
         ],
         "gabarito": "A"
-    },
-    {
+      },
+      {
         "id": "6",
         "numero": 6,
         "enunciado": "Em qual ano surgiu a primeira versão do HTML?",
         "alternativas": [
-            {
-                "item": "A",
-                "descricao": "1989"
-            },
-            {
-                "item": "B",
-                "descricao": "1990"
-            },
-            {
-                "item": "C",
-                "descricao": "1991"
-            },
-            {
-                "item": "D",
-                "descricao": "2002"
-            }
+          {
+            "item": "A",
+            "descricao": "1989"
+          },
+          {
+            "item": "B",
+            "descricao": "1990"
+          },
+          {
+            "item": "C",
+            "descricao": "1991"
+          },
+          {
+            "item": "D",
+            "descricao": "2002"
+          }
         ],
         "gabarito": "C"
-    },
-    {
+      },
+      {
         "id": "7",
         "numero": 7,
         "enunciado": "Qual versão do HTML introduziu suporte a formulários?",
         "alternativas": [
-            {
-                "item": "A",
-                "descricao": "HTML4 e HTML5"
-            },
-            {
-                "item": "B",
-                "descricao": "HTML3"
-            },
-            {
-                "item": "C",
-                "descricao": "HTML2"
-            },
-            {
-                "item": "D",
-                "descricao": "HTML1"
-            }
+          {
+            "item": "A",
+            "descricao": "HTML4 e HTML5"
+          },
+          {
+            "item": "B",
+            "descricao": "HTML3"
+          },
+          {
+            "item": "C",
+            "descricao": "HTML2"
+          },
+          {
+            "item": "D",
+            "descricao": "HTML1"
+          }
         ],
         "gabarito": "C"
-    },
-    {
+      },
+      {
         "id": "8",
         "numero": 8,
         "enunciado": "O HTML é uma linguagem de:",
         "alternativas": [
-            {
-                "item": "A",
-                "descricao": "consulta de dados"
-            },
-            {
-                "item": "B",
-                "descricao": "marcação"
-            },
-            {
-                "item": "C",
-                "descricao": "programação"
-            },
-            {
-                "item": "D",
-                "descricao": "estilização de páginas Web"
-            }
+          {
+            "item": "A",
+            "descricao": "consulta de dados"
+          },
+          {
+            "item": "B",
+            "descricao": "marcação"
+          },
+          {
+            "item": "C",
+            "descricao": "programação"
+          },
+          {
+            "item": "D",
+            "descricao": "estilização de páginas Web"
+          }
         ],
         "gabarito": "B"
-    },
-    {
+      },
+      {
         "id": "9",
         "numero": 9,
-        "enunciado": "Qual a finalidade da tag <title>?",
+        "enunciado": "Qual a finalidade da tag title?",
         "alternativas": [
-            {
-                "item": "A",
-                "descricao": "Definir o idioma da página"
-            },
-            {
-                "item": "B",
-                "descricao": "Definir o fuso horário da página"
-            },
-            {
-                "item": "C",
-                "descricao": "Escrever um texto em negrito na tela"
-            },
-            {
-                "item": "D",
-                "descricao": "Exibir o título da página na aba do navegador"
-            }
+          {
+            "item": "A",
+            "descricao": "Definir o idioma da página"
+          },
+          {
+            "item": "B",
+            "descricao": "Definir o fuso horário da página"
+          },
+          {
+            "item": "C",
+            "descricao": "Escrever um texto em negrito na tela"
+          },
+          {
+            "item": "D",
+            "descricao": "Exibir o título da página na aba do navegador"
+          }
         ],
         "gabarito": "D"
-    },
-    {
+      },
+      {
         "id": "10",
         "numero": 10,
-        "enunciado": "Qual a finalidade da tag <meta charset='UTF-8'>?",
+        "enunciado": "Qual a finalidade do atributo charset='UTF-8' na tag meta?",
         "alternativas": [
-            {
-                "item": "A",
-                "descricao": "Definir a codificação de caracteres"
-            },
-            {
-                "item": "B",
-                "descricao": "Exibir o título da página"
-            },
-            {
-                "item": "C",
-                "descricao": "Identificar a folha de estilos da página"
-            },
-            {
-                "item": "D",
-                "descricao": "Bloquear acessos indevidos"
-            }
+          {
+            "item": "A",
+            "descricao": "Definir a codificação de caracteres"
+          },
+          {
+            "item": "B",
+            "descricao": "Exibir o título da página"
+          },
+          {
+            "item": "C",
+            "descricao": "Identificar a folha de estilos da página"
+          },
+          {
+            "item": "D",
+            "descricao": "Bloquear acessos indevidos"
+          }
         ],
         "gabarito": "A"
-    }
+      },
+      {
+        "numero": 11,
+        "enunciado": "Qual a raiz quadrada de 9?",
+        "gabarito": "D",
+        "alternativas": [
+          {
+            "item": "A",
+            "descricao": "0"
+          },
+          {
+            "item": "B",
+            "descricao": "1"
+          },
+          {
+            "item": "C",
+            "descricao": "2"
+          },
+          {
+            "item": "D",
+            "descricao": "3"
+          }
+        ],
+        "id": "11"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "titulo": "Aula 2 - Formatação de textos e listas",
+    "perguntas": [
+      {
+        "id": "1",
+        "numero": "1",
+        "enunciado": "Qual tag HTML é utilizada para parágrafos?",
+        "alternativas": [
+          {
+            "item": "A",
+            "descricao": "h1"
+          },
+          {
+            "item": "B",
+            "descricao": "h2"
+          },
+          {
+            "item": "C",
+            "descricao": "p"
+          },
+          {
+            "item": "D",
+            "descricao": "span"
+          }
+        ],
+        "gabarito": "A"
+      },
+      {
+        "id": "2",
+        "numero": "2",
+        "enunciado": "",
+        "alternativas": [],
+        "gabarito": "A"
+      },
+      {
+        "id": "3",
+        "numero": "3",
+        "enunciado": "",
+        "alternativas": [],
+        "gabarito": "A"
+      },
+      {
+        "id": "4",
+        "numero": "4",
+        "enunciado": "",
+        "alternativas": [],
+        "gabarito": "A"
+      },
+      {
+        "id": "5",
+        "numero": "5",
+        "enunciado": "",
+        "alternativas": [],
+        "gabarito": "A"
+      },
+      {
+        "id": "6",
+        "numero": "6",
+        "enunciado": "",
+        "alternativas": [],
+        "gabarito": "A"
+      },
+      {
+        "id": "7",
+        "numero": "7",
+        "enunciado": "",
+        "alternativas": [],
+        "gabarito": "A"
+      },
+      {
+        "id": "8",
+        "numero": "8",
+        "enunciado": "",
+        "alternativas": [],
+        "gabarito": "A"
+      },
+      {
+        "id": "9",
+        "numero": "9",
+        "enunciado": "",
+        "alternativas": [],
+        "gabarito": "A"
+      },
+      {
+        "id": "10",
+        "numero": "10",
+        "enunciado": "",
+        "alternativas": [],
+        "gabarito": "A"
+      }
+    ]
+  }
 ]

@@ -36,7 +36,7 @@
         <script>
 
             if(verificarLogin()) {
-                window.location.href = './login.html';
+                window.location.href = './index.html';
             }
 
             const competidor = localStorage.getItem('competidor');
@@ -52,11 +52,7 @@
             function verificarLogin() 
             {
                 const competidor = localStorage.getItem('competidor');
-
-                if(!competidor) {
-                    window.location.href = './login.html';
-                    return;
-                }
+                return !competidor;
             }
 
             function refazerTeste() {
@@ -70,7 +66,8 @@
                 localStorage.removeItem('competidor');
                 localStorage.removeItem('perguntas');
                 localStorage.removeItem('quiz_selecionado');
-                window.location.href = './login.html';
+                
+                window.location.href = './index.html';
             }
 
         </script>

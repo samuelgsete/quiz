@@ -26,20 +26,17 @@
 
             async function init()
             {
-                const quiz = await carregarQuiz();
-                const perguntas = quiz.perguntas;
+                verificarLogin();
+
+                const perguntas = await carregarQuiz();
                 localStorage.setItem('perguntas', JSON.stringify(perguntas));
                 localStorage.setItem('total_perguntas', perguntas.length);
                 renderizarQuiz(perguntas);
             }
 
             async function carregarQuiz() 
-            {
-                verificarLogin();
-
-                const quiz_selecionado = localStorage.getItem('quiz_selecionado');
-                                               
-                const resposta = await fetch(`${API_URL}/${quiz_selecionado}`);
+            {                                               
+                const resposta = await fetch(API_URL);
                 if(!resposta.ok) {
                     alert('Não foi possível carregar as perguntas do quiz');
                     return;
@@ -118,7 +115,7 @@
                 document.getElementById('competidor').innerText = competidor;
 
                 if(!competidor) {
-                    window.location.href = './login.html';
+                    window.location.href = './index.html';
                     return;
                 }
 

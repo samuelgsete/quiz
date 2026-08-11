@@ -295,70 +295,223 @@
             "descricao": "span"
           }
         ],
-        "gabarito": "A"
+        "gabarito": "C"
       },
       {
         "id": "2",
         "numero": "2",
-        "enunciado": "",
-        "alternativas": [],
+        "enunciado": "Qual tag HTML é utilizada para sublinhar um texto?",
+        "alternativas": [
+          {
+            "item": "A",
+            "descricao": "u"
+          },
+          {
+            "item": "B",
+            "descricao": "hr"
+          },
+          {
+            "item": "C",
+            "descricao": "i"
+          },
+          {
+            "item": "D",
+            "descricao": "ol"
+          }
+        ],
         "gabarito": "A"
       },
       {
         "id": "3",
         "numero": "3",
-        "enunciado": "",
-        "alternativas": [],
-        "gabarito": "A"
+        "enunciado": "Qual tag HTML é utilizada para destacar um texto deixando-o com coloração amarelada?",
+        "alternativas": [
+          {
+            "item": "A",
+            "descricao": "meta"
+          },
+          {
+            "item": "B",
+            "descricao": "title"
+          },
+          {
+            "item": "C",
+            "descricao": "abbr"
+          },
+          {
+            "item": "D",
+            "descricao": "mark"
+          }
+        ],
+        "gabarito": "D"
       },
       {
         "id": "4",
         "numero": "4",
-        "enunciado": "",
-        "alternativas": [],
-        "gabarito": "A"
+        "enunciado": "Qual tag HTML é utilizada para abreviaturas?",
+        "alternativas": [
+          {
+            "item": "A",
+            "descricao": "mark"
+          },
+          {
+            "item": "B",
+            "descricao": "abbr"
+          },
+          {
+            "item": "C",
+            "descricao": "abs"
+          },
+          {
+            "item": "D",
+            "descricao": "li"
+          }
+        ],
+        "gabarito": "B"
       },
       {
         "id": "5",
         "numero": "5",
-        "enunciado": "",
-        "alternativas": [],
+        "enunciado": "Qual tag HTML é utilizada para demarcar um separador entre seções?",
+        "alternativas": [
+          {
+            "item": "A",
+            "descricao": "hr"
+          },
+          {
+            "item": "B",
+            "descricao": "br"
+          },
+          {
+            "item": "C",
+            "descricao": "ul"
+          },
+          {
+            "item": "D",
+            "descricao": "input"
+          }
+        ],
         "gabarito": "A"
       },
       {
         "id": "6",
         "numero": "6",
-        "enunciado": "",
-        "alternativas": [],
-        "gabarito": "A"
+        "enunciado": "Qual tag HTML é utilizada para deixar um texto em negrito?",
+        "alternativas": [
+          {
+            "item": "A",
+            "descricao": "bold"
+          },
+          {
+            "item": "B",
+            "descricao": "h6"
+          },
+          {
+            "item": "C",
+            "descricao": "strong"
+          },
+          {
+            "item": "D",
+            "descricao": "strike"
+          }
+        ],
+        "gabarito": "C"
       },
       {
         "id": "7",
         "numero": "7",
-        "enunciado": "",
-        "alternativas": [],
+        "enunciado": "Qual tag HTML deixa o texto com um risco horizontal?",
+        "alternativas": [
+          {
+            "item": "A",
+            "descricao": "del"
+          },
+          {
+            "item": "B",
+            "descricao": "ul"
+          },
+          {
+            "item": "C",
+            "descricao": "abbr"
+          },
+          {
+            "item": "D",
+            "descricao": "br"
+          }
+        ],
         "gabarito": "A"
       },
       {
         "id": "8",
         "numero": "8",
-        "enunciado": "",
-        "alternativas": [],
-        "gabarito": "A"
+        "enunciado": "Qual o menor tamanho de fonte da tag h?",
+        "alternativas": [
+          {
+            "item": "A",
+            "descricao": "h1"
+          },
+          {
+            "item": "B",
+            "descricao": "h6"
+          },
+          {
+            "item": "C",
+            "descricao": "h7"
+          },
+          {
+            "item": "D",
+            "descricao": "h4"
+          }
+        ],
+        "gabarito": "B"
       },
       {
         "id": "9",
         "numero": "9",
-        "enunciado": "",
-        "alternativas": [],
+        "enunciado": "Qual tag é utilizada para listas não ordenadas?",
+        "alternativas": [
+          {
+            "item": "A",
+            "descricao": "ul"
+          },
+          {
+            "item": "B",
+            "descricao": "li"
+          },
+          {
+            "item": "C",
+            "descricao": "del"
+          },
+          {
+            "item": "D",
+            "descricao": "ol"
+          }
+        ],
         "gabarito": "A"
       },
       {
         "id": "10",
         "numero": "10",
-        "enunciado": "",
-        "alternativas": [],
-        "gabarito": "A"
+        "enunciado": "Qual atributo da tag ol altera o identificador de ordenação?",
+        "alternativas": [
+          {
+            "item": "A",
+            "descricao": "tel"
+          },
+          {
+            "item": "B",
+            "descricao": "title"
+          },
+          {
+            "item": "C",
+            "descricao": "type"
+          },
+          {
+            "item": "D",
+            "descricao": "get"
+          }
+        ],
+        "gabarito": "C"
       }
     ]
   }

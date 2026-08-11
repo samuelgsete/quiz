@@ -420,7 +420,7 @@
       {
         "id": "7",
         "numero": "7",
-        "enunciado": "Qual tag HTML deixa o texto com um risco?",
+        "enunciado": "Qual tag HTML deixa o texto com um risco horizontal?",
         "alternativas": [
           {
             "item": "A",

@@ -1,0 +1,2 @@
+//const API_URL = 'https://6a7747d863e9caf860c3743e.mockapi.io/perguntas';
+const API_URL = 'https://6a7747d863e9caf860c3743e.mockapi.io';

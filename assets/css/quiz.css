@@ -12,11 +12,22 @@ section {
     padding: 30px 50px;
     background-color: #ffff;
     overflow: auto;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
 
 p {
     font-size: 18px;
-    margin-bottom: 24px;;
+    margin:  0 0 20px;
+}
+
+h1 {
+    font-size: 16px;
+    font-weight: 550;
+    text-align: center;
+    color: #fefefe;
+    background-color:  var(--preto);
+    padding: 12px 0;
 }
 
 div#quiz {

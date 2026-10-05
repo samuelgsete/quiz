@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+        <link rel="stylesheet" href="../assets/css/base.css">
+        <link rel="stylesheet" href="../assets/css/listar-alunos.css">
+        <title>Todos os testes</title>
+    </head>
+    <body onload="carregarTestes()">
+
+        <section>
+            <img id="home" src="../assets/img/logo.png" alt="Logotipo" width="200px"> 
+            <h1>Todos os testes</h1>
+        
+            <main>
+                <ul id="testes"></ul>
+                <button class="btn btn-outline" type="button" onclick="novoAluno()">Novo teste</button>
+            </main>
+
+        </section>
+
+        <script>
+
+            async function carregarTestes() 
+            {                                               
+                const testes = await runGet('quiz');
+                renderizarTestes(testes);
+            }
+            
+            function renderizarTestes(testes)
+            {
+                let html = testes.map(teste => {
+                    return `
+                        <li>
+                            <div>
+                                <p>${teste.ativo ? 'Ativo' : 'Inativo'}</p>
+                                <strong>${teste.titulo}</strong>
+                                <p>${teste.perguntas.length + ' pergunta(s)' }</p>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn-icon" type="button" onclick="irParaEditar('${teste.id}')">
+                                    <span class="material-symbols-outlined">edit</span>
+                                </button>
+                                <button class="btn-icon" type="button" onclick="remover('${teste.id}')">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                            </div>
+                        </li>
+                    `;
+                }).join("");
+
+                if(html === '') {
+                    html = '<li class="center">Nenhum registro encontrado</li>'
+                }
+
+                document.getElementById('testes').innerHTML = html;
+            }
+
+            async function remover(id)
+            {
+                const uri = `quiz/${id}`;
+                const ok = await runDelete(uri);
+                if(ok) {
+                   await carregarTestes();
+                }
+            }
+
+            async function irParaEditar(id)
+            {
+                localStorage.setItem('id_quiz', id);
+                goTo('editar.html');
+            }
+
+            function novoAluno()
+            {
+                localStorage.removeItem('id_aluno');
+                goTo('novo.html');
+            }
+
+        </script>
+
+        <script src="../assets/js/api.js"></script>
+        <script src="../assets/js/http.js"></script>
+        <script src="../assets/js/loading.js"></script>
+        <script src="../assets/js/router.js"></script>
+    </body>
+</html>

@@ -3,19 +3,21 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./css/base.css">
-        <link rel="stylesheet" href="./css/formulario.css">
-        <title>Criar pergunta</title>
+        <link rel="stylesheet" href="../assets/css/base.css">
+        <link rel="stylesheet" href="../assets/css/formulario.css">
+        <title>Adicionar pergunta</title>
     </head>
-    <body onload="carregarPerguntas()">
+    <body onload="configurarFormulario()">
 
         <section>
 
-            <img src="./logo.png" alt="Logotipo" width="200px">        
+            <img id="home" src="../assets/img/logo.png" alt="Logotipo" width="200px">        
             <h1>Registrar pergunta</h1>
-            <p>Crie novas perguntas</p>
-
+            <p></p>
+            
             <form name="quiz" method="POST">
+
+                <input id="id_quiz" name="id_quiz" type="hidden" readonly>
 
                 <div class="form-field">
                     <label for="numero">Número</label>
@@ -73,10 +75,6 @@
             
         </section>
 
-        <script src="./js/api.js"></script>
-        <script src="./js/http.js"></script>
-        <script src="./js/loading.js"></script>
-
         <script>
 
             const quiz = document.forms['quiz'];
@@ -95,13 +93,12 @@
                     ],
                     gabarito: dados.get('gabarito')
                 }
+                
+                const id_quiz = dados.get('id_quiz');
+                const quiz = await carregarQuiz();
+                quiz.perguntas.push(pergunta);
 
-                if(await verificarNumeroQuestao(pergunta.numero)) {
-                    alert('Já existe uma pergunta com esse número, escolha outro número');
-                    return;
-                }
-
-                const ok = await runPost('perguntas', pergunta);
+                const ok = await runPut(`quiz/${id_quiz}`, quiz);
              
                 if(!ok) {
                     alert('Deu ruim :( Tente novamente!');
@@ -109,19 +106,26 @@
                 }
 
                 alert('A pergunta foi registrada com sucesso!');
-                location.reload();
+                reload();
             });
 
-            async function verificarNumeroQuestao(numero) {
-                const resposta = await fetch(`${API_URL}/perguntas?numero=${numero}`);
-                const perguntas = await resposta.json();
-                if(perguntas == "Not found") { return false; }
-                return perguntas.length > 0;
+            async function carregarQuiz() {
+                const id_quiz = localStorage.getItem('id_quiz');
+                return await runGet(`quiz/${id_quiz}`);                                         
             }
 
-            async function carregarPerguntas() 
+            async function configurarFormulario() 
             {
-                const perguntas = await runGet('perguntas');
+                const quiz = await carregarQuiz();
+                               
+                const p = document.querySelector('p');
+                p.textContent = quiz.titulo;
+
+                const inputID = document.querySelector('#id_quiz');
+                inputID.value = quiz.id;
+
+                const perguntas = quiz.perguntas;
+                
                 let maiorNumero = perguntas.length ? Math.max(...perguntas.map(p => Number(p.numero))) : 0;
                 const input = document.querySelector('#numero');
                 input.value = ++maiorNumero;
@@ -130,10 +134,15 @@
 
             function verPerguntas()
             {
-                window.location.href = "perguntas.html";
+                goTo("perguntas.html");
             }
 
         </script>
+
+        <script src="../assets/js/api.js"></script>
+        <script src="../assets/js/http.js"></script>
+        <script src="../assets/js/loading.js"></script>
+        <script src="../assets/js/router.js"></script>
 
     </body>
 </html>

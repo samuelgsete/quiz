@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+        <link rel="stylesheet" href="../assets/css/base.css">
+        <link rel="stylesheet" href="../assets/css/listar-alunos.css">
+        <title>Todos os alunos</title>
+    </head>
+    <body onload="carregarAlunos()">
+
+        <section>
+            <img id="home" src="../assets/img/logo.png" alt="Logotipo" width="200px"> 
+            <h1>Todas os alunos</h1>
+        
+            <main>
+                <ul id="alunos"></ul>
+                <button class="btn btn-outline" type="button" onclick="novoAluno()">Novo aluno(a)</button>
+            </main>
+
+        </section>
+
+        <script>
+
+            async function carregarAlunos() 
+            {                                               
+                const alunos = await runGet('alunos');
+                renderizaralunos(alunos);
+            }
+            
+            function renderizaralunos(alunos)
+            {
+                let html = alunos.map(aluno => {
+                    return `
+                        <li>
+                            <div>
+                                <p>${aluno.turma}</p>
+                                <strong>${aluno.nome}</strong>
+                                <p>${aluno.cpf}</p>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn-icon" type="button" onclick="irParaEditar('${aluno.id}')">
+                                    <span class="material-symbols-outlined">edit</span>
+                                </button>
+                                <button class="btn-icon" type="button" onclick="remover('${aluno.id}')">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                            </div>
+                        </li>
+                    `;
+                }).join("");
+
+                if(html === '') {
+                    html = '<li class="center">Nennum registro encontrado</li>'
+                }
+
+                document.getElementById('alunos').innerHTML = html;
+            }
+
+            async function remover(id)
+            {
+                const uri = `alunos/${id}`;
+                const ok = await runDelete(uri);
+                if(ok) {
+                   await carregarAlunos();
+                }
+            }
+
+            function irParaEditar(id)
+            {
+                localStorage.setItem('id_aluno', id);
+                goTo('editar.html');
+            }
+
+            function novoAluno()
+            {
+                localStorage.removeItem('id_aluno');
+                goTo('novo.html');
+            }
+
+        </script>
+
+        <script src="../assets/js/api.js"></script>
+        <script src="../assets/js/http.js"></script>
+        <script src="../assets/js/loading.js"></script>
+        <script src="../assets/js/router.js"></script>
+    </body>
+</html>

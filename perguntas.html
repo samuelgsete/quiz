@@ -15,27 +15,21 @@
             <h1>Todas as perguntas</h1>
         
             <main>
-                <ul id="perguntas">
-                    <li>Carregando...</li>
-                </ul>
+                <ul id="perguntas"></ul>
                 <button class="btn btn-outline" type="button" onclick="novaPergunta()">Nova pergunta</button>
             </main>
 
         </section>
 
         <script src="./js/api.js"></script>
+        <script src="./js/http.js"></script>
+        <script src="./js/loading.js"></script>
 
         <script>
 
             async function carregarPerguntas() 
             {                                               
-                const resposta = await fetch(API_URL);
-                if(!resposta.ok) {
-                    alert('Não foi possível carregar as perguntas do quiz');
-                    return;
-                }
-
-                const perguntas = await resposta.json();
+                const perguntas = await runGet('perguntas');
                 renderizarPerguntas(perguntas);
             }
             
@@ -72,12 +66,10 @@
 
             async function remover(id)
             {
-                if(confirm("Tem certeza que deseja excluir?")) {
-                    const resposta = await fetch(`${API_URL}/${id}`, {
-                        headers: { 'Content-Type': 'application/json' },
-                        method: 'DELETE'
-                    });
-                    location.reload();
+                const uri = `perguntas/${id}`;
+                const ok = await runDelete(uri);
+                if(ok) {
+                   await carregarPerguntas();
                 }
             }
 

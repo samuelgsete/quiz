@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+        <link rel="stylesheet" href="./css/base.css">
+        <link rel="stylesheet" href="./css/formulario.css">
+        <title>Cadastro de alunos</title>
+    </head>
+    <body onload="carregarAluno()">
+
+        <section>
+
+            <img src="./img/logo.png" alt="Logotipo" width="200px">        
+            <h1>Novo aluno(a)</h1>
+            <p>Registre novos alunos e alunas</p>
+
+            <form name="cadastro" method="POST">
+
+                <input type="hidden" name="id" readonly>
+
+                <div class="form-field">
+                    <label for="nome">Nome completo:</label>
+                    <input id="nome" type="text" name="nome" placeholder="Ex: João Pedro" maxlength="50" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="turma">Turma:</label>
+                    <input id="turma" type="text" name="turma" placeholder="Ex: ddw-2601" maxlength="10" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="cpf">CPF:</label>
+                    <input id="cpf" type="text" name="cpf" placeholder="Ex: 000.000.000-00" maxlength="14" required>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Salvar</button>
+                <button class="btn btn-light" type="reset">Recomeçar</button>
+                <button class="btn btn-outline" type="button" onclick="verAlunos()">Ver alunos</button>
+               
+            </form>
+            
+        </section>
+
+        <script src="./js/api.js"></script>
+        <script src="./js/http.js"></script>
+        <script src="./js/loading.js"></script>
+
+        <script>
+            
+            const form = document.forms['cadastro'];
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+               const { id, nome, turma, cpf } = form;
+
+                const novoAluno = {
+                    nome: nome.value.trim(),
+                    turma: turma.value.trim(),
+                    cpf: cpf.value.trim()
+                }
+
+                const ok = await runPut(`alunos/${id.value}`, novoAluno);
+             
+                if(!ok) {
+                    alert('Deu ruim :( Tente novamente!');
+                    return;
+                }
+
+                alert('Perfeito :) Tudo ok!');
+                location.reload();
+            });
+
+            async function carregarAluno() {
+                const aluno = await runGet(`alunos/${localStorage.getItem('id_aluno')}`);
+                const form = document.forms['cadastro'];
+                props = ['id', 'nome', 'turma', 'cpf'];
+                props.forEach(campo => {
+                    form.elements[campo].value = aluno[campo];
+                });
+            }
+
+            function verAlunos()
+            {
+                window.location.href = "alunos.html";
+            }
+        </script>
+        
+    </body>
+</html>

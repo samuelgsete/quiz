@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../assets/css/base.css">
+        <link rel="stylesheet" href="../assets/css/ranking.css">
+        <title>Competidores mais bem colocados</title>
+    </head>
+    <body onload="init()">
+        <section>
+            <img src="../assets/img/logo.png" alt="Logotipo" width="200px"> 
+            <h1 id="competidor">Carregando...</h1>
+            <p>Competidores mais bem colocados 🏆</p>
+        
+            <table>
+                <tr>
+                    <th style="width: 30px;">Posição</th>
+                    <th>Competidor</th>
+                    <th>Nota</th>
+                </tr>
+            </table>
+
+            <button class="btn btn-primary" type="button" onclick="sair()">Sair</button>
+
+        </section>
+
+        <script>
+
+            async function init() 
+            {
+                const quiz = await carregarQuiz();
+                const h1 = document.querySelector('h1');
+                h1.textContent = quiz.titulo;
+
+                const ranking = quiz.ranking;
+                ranking.sort((a1, a2) => a2.nota - a1.nota);
+                ranking.forEach((aluno, index) => {
+                    aluno.posicao = ++index;
+                });
+
+                const table = document.querySelector('table');
+
+                const rows = ranking.map(aluno => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${aluno.posicao}</td>
+                        <td>${aluno.nome}</td>
+                        <td>${aluno.nota}</td>
+                    `;
+                    return tr;
+                });
+
+                table.append(...rows);
+            }
+            
+        </script>
+
+        <script src="../assets/js/api.js"></script>
+        <script src="../assets/js/http.js"></script>
+        <script src="../assets/js/loading.js"></script>
+        <script src="../assets/js/router.js"></script>
+        <script src="../assets/js/shared.js"></script>
+
+    </body>
+</html>

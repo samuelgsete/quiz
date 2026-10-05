@@ -5,6 +5,8 @@ section {
     padding: 30px 50px;
     background-color: #ffff;
     overflow: auto;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px
 }
 
 h1, p {

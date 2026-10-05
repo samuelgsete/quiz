@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+        <link rel="stylesheet" href="../assets/css/base.css">
+        <link rel="stylesheet" href="../assets/css/formulario.css">
+        <title>Faça seu Quiz</title>
+    </head>
+    <body>
+
+        <section>
+
+            <img id="home" src="../assets/img/logo.png" alt="Logotipo" width="200px">        
+            <h1>Novo quiz</h1>
+            <p>Registre um novo quiz</p>
+
+            <form name="cadastro" method="POST">
+
+                <div class="form-field">
+                    <label for="titulo">Título:</label>
+                    <input id="titulo" type="text" name="titulo" placeholder="Ex: Matemática básica" maxlength="50" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="ativo">Ativar?</label>
+                    <select id="ativo" name="ativo" required>
+                        <option value="true">SIM</option>
+                        <option value="false" selected>NÃO</option>
+                    </select>
+                    <span class="icon material-symbols-outlined">
+                        expand_more
+                    </span>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Salvar</button>
+                <button class="btn btn-light" type="reset">Recomeçar</button>
+                <button class="btn btn-outline" type="button" onclick="goTo('listar.html')">
+                    Ver testes
+                </button>
+               
+            </form>
+            
+        </section>
+
+        <script>
+            const form = document.forms['cadastro'];
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const { titulo, ativo } = form;
+
+                const novoQuiz = { 
+                    titulo: titulo.value.trim(),
+                    ativo: ativo.value
+                }
+
+                console.log(novoQuiz);
+
+                const ok = await runPost('quiz', novoQuiz);
+             
+                if(!ok) {
+                    alert('Deu ruim :( Tente novamente!');
+                    return;
+                }
+
+                alert('Perfeito :) Tudo ok!');
+                reload();
+            });
+        </script>
+
+        <script src="../assets/js/api.js"></script>
+        <script src="../assets/js/http.js"></script>
+        <script src="../assets/js/loading.js"></script>
+        <script src="../assets/js/router.js"></script>
+        
+    </body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../assets/css/base.css">
+        <link rel="stylesheet" href="../assets/css/formulario.css">
+        <title>Editar pergunta</title>
+    </head>
+    <body onload="configurarFormulario()">
+
+        <section>
+
+            <img id="home" src="../assets/img/logo.png" alt="Logotipo" width="200px">        
+            <h1>Editar pergunta</h1>
+            <p></p>
+
+            <form name="pergunta" method="POST">
+
+                <input id="id_quiz" name="id_quiz" type="hidden" readonly>
+
+                <div class="form-field">
+                    <label for="numero">Número</label>
+                    <input id="numero" type="number" name="numero" readonly required>
+                </div>
+
+                <div class="form-field">
+                    <label for="enunciado">Enunciado</label>
+                    <input id="enunciado" type="text" name="enunciado" required>
+                </div>
+
+                <div class="group-field">
+                    Alternativas da pergunta
+                </div>
+
+                <div class="form-field">
+                    <label for="itemA">Item A</label>
+                    <input id="itemA" type="text" name="itemA" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="itemB">Item B</label>
+                    <input id="itemB" type="text" name="itemB" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="itemC">Item C</label>
+                    <input id="itemC" type="text" name="itemC" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="itemD">Item D</label>
+                    <input id="itemD" type="text" name="itemD" required>
+                </div>
+
+                <div class="group-field">Selecione o gabarito da pergunta</div>
+
+                <div class="form-field">
+                    <label for="gabarito">Gabarito</label>
+                    <select id="gabarito" name="gabarito" required>
+                        <option value="">selecione...</option>
+                        <option value="A">Item A</option>
+                        <option value="B">Item B</option>
+                        <option value="C">Item C</option>
+                        <option value="D">Item D</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Salvar</button>
+                <button class="btn btn-light" type="buttom" onclick="goTo('nova-pergunta.html')">
+                    Nova pergunta
+                </button>
+                <button class="btn btn-outline" type="button" onclick="verPerguntas()">Ver perguntas</button>
+            </form>
+            
+        </section>
+
+        <script>
+
+            const pergunta = document.forms['pergunta'];
+            pergunta.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const dados = new FormData(e.target);
+
+                const perguntaEditada = {
+                    numero: parseInt(dados.get('numero')),
+                    enunciado: dados.get('enunciado'),
+                    alternativas: [
+                        { item: 'A', descricao: dados.get('itemA') },
+                        { item: 'B', descricao: dados.get('itemB') },
+                        { item: 'C', descricao: dados.get('itemC') },
+                        { item: 'D', descricao: dados.get('itemD') }
+                    ],
+                    gabarito: dados.get('gabarito')
+                }
+                
+                const id_quiz = dados.get('id_quiz');
+                const quiz = await carregarQuiz();
+
+                const numero_pergunta = localStorage.getItem('numero_pergunta');
+          
+                const perguntasEditadas = quiz.perguntas.map(pergunta => {
+                    
+                    if(pergunta.numero == numero_pergunta) {
+                        pergunta.enunciado = perguntaEditada.enunciado;
+                        pergunta.alternativas = [
+                            { item: 'A', descricao: perguntaEditada.alternativas[0].descricao },
+                            { item: 'B', descricao: perguntaEditada.alternativas[1].descricao },
+                            { item: 'C', descricao: perguntaEditada.alternativas[2].descricao },
+                            { item: 'D', descricao: perguntaEditada.alternativas[3].descricao }
+                        ];
+                    }
+                    return pergunta;
+                });               
+
+                const ok = await runPut(`quiz/${id_quiz}`, quiz);
+             
+                if(!ok) {
+                    alert('Deu ruim :( Tente novamente!');
+                    return;
+                }
+
+                alert('A pergunta foi editada com sucesso!');
+                configurarFormulario();
+            });
+
+            async function carregarQuiz() {
+                const id_quiz = localStorage.getItem('id_quiz');
+                return await runGet(`quiz/${id_quiz}`);                                         
+            }
+
+            async function configurarFormulario() 
+            {
+                const numero_pergunta = localStorage.getItem('numero_pergunta');
+                if(numero_pergunta == undefined) { goTo('perguntas.html') }
+
+                const quiz = await carregarQuiz();
+                                               
+                const p = document.querySelector('p');
+                p.textContent = quiz.titulo;
+
+                const inputID = document.querySelector('#id_quiz');
+                inputID.value = quiz.id;
+
+                const formPergunta = document.forms['pergunta'];
+                const pergunta = quiz.perguntas.find(pergunta => pergunta.numero == numero_pergunta);
+               
+                formPergunta.numero.value = pergunta.numero;
+                formPergunta.enunciado.value = pergunta.enunciado;
+                formPergunta.gabarito.value = pergunta.gabarito;
+
+                formPergunta.itemA.value = pergunta.alternativas[0].descricao;
+                formPergunta.itemB.value = pergunta.alternativas[1].descricao;
+                formPergunta.itemC.value = pergunta.alternativas[2].descricao;
+                formPergunta.itemD.value = pergunta.alternativas[3].descricao;
+            }
+
+            function verPerguntas()
+            {
+                goTo("perguntas.html");
+            }
+
+        </script>
+
+        <script src="../assets/js/api.js"></script>
+        <script src="../assets/js/http.js"></script>
+        <script src="../assets/js/loading.js"></script>
+        <script src="../assets/js/router.js"></script>
+
+    </body>
+</html>

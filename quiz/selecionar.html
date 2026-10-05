@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+        <link rel="stylesheet" href="../assets/css/base.css">
+        <link rel="stylesheet" href="../assets/css/formulario.css">
+        <title>Selecione um Quiz</title>
+    </head>
+    <body onload="carregarTestes()">
+
+        <section>
+
+            <img src="../assets/img/logo.png" alt="Logotipo" width="200px">        
+            <h1>Selecione um quiz</h1>
+            <p>Selecione um quiz para começar</p>
+
+            <form name="quiz" method="POST">
+
+                <div class="form-field">
+                    <label for="id_teste">Qual o quiz de hoje?</label>
+                    <select id="id_teste" name="id_teste" required>
+                        <option value="">selecione...</option>
+                    </select>
+                    <span class="icon material-symbols-outlined">
+                        expand_more
+                    </span>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Começar</button>               
+            </form>
+            
+        </section>
+
+        <script>
+            const form = document.forms['quiz'];
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const { id_teste } = form;
+                
+                localStorage.setItem('id_teste', id_teste.value);
+
+                goTo('comecar.html');
+            });
+
+            async function carregarTestes()
+            {
+                const select = document.querySelector('select');
+                let testes = await runGet('quiz');
+                
+                testes = testes
+                .map(teste => {
+                    teste.ativo = teste.ativo == 'true';
+                    teste.id = Number(teste.id);
+                    return teste;
+                })
+                .forEach(teste => {
+                    const option = document.createElement('option');
+                    option.value = teste.id;
+                    option.innerHTML = teste.titulo;
+                    option.disabled = !teste.ativo;
+                    select.appendChild(option);
+                })
+            }
+
+        </script>
+
+        <script src="../assets/js/api.js"></script>
+        <script src="../assets/js/http.js"></script>
+        <script src="../assets/js/loading.js"></script>
+        <script src="../assets/js/router.js"></script>
+        <script src="../assets/js/shared.js"></script>
+        
+    </body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../assets/css/base.css">
+        <link rel="stylesheet" href="../assets/css/quiz.css">
+        <title>Boa sorte :)</title>
+    </head>
+    <body onload="init()">
+
+        <section>
+            <img src="../assets/img/logo.png" alt="Logotipo" width="200px"> 
+            <p>Boa sorte <strong id="competidor">Competidor</strong>&#x1F340;</p>
+            <h1 id="titulo">Carregando...</h1>
+            <form name="quiz" method="POST">
+                <div id="quiz">
+                    <span>Carregando...</span>
+                </div>
+                <button class="btn btn-outline" type="submit">Concluir Teste</button>
+            </form>
+
+        </section>
+
+        <script>
+
+            const formulario = document.forms['quiz'];
+            formulario.addEventListener('submit', function (e) {
+                e.preventDefault();
+                concluirTeste();
+            });
+
+            async function init()
+            {
+                const quiz = await carregarQuiz();
+
+                const h1 = document.querySelector('#titulo');
+                h1.textContent = quiz.titulo;
+
+                const perguntas = quiz.perguntas;
+                localStorage.setItem('perguntas', JSON.stringify(perguntas));
+                localStorage.setItem('total_perguntas', perguntas.length);
+                localStorage.setItem('acertos', 0)
+                localStorage.setItem('erros', 0)
+                renderizarQuiz(perguntas);
+            }
+
+            async function carregarQuiz() 
+            {                              
+                const id_quiz = localStorage.getItem('id_teste');                 
+                return await runGet(`quiz/${id_quiz}`);
+            }
+            
+            function renderizarQuiz(perguntas) {
+
+                let htmlQuiz = perguntas.map((pergunta) => {
+                    return `
+                        <div class="pergunta">
+                            <strong>Questão ${pergunta.numero}</strong>
+                            <div class="form-field-radio">
+                                <div>${pergunta.enunciado}</div>
+                                ${pergunta.alternativas.map((alternativa) => {
+                                    return renderizarAlternativa(pergunta, alternativa);     
+                                }).join("")}
+                            </div>
+                            <div id="status-${pergunta.numero}"></div>
+                        </div>
+                    `;
+                });
+                const divQuiz = document.getElementById('quiz');
+                divQuiz.innerHTML = htmlQuiz.join("");
+            }
+
+            function renderizarAlternativa(pergunta, alternativa) {
+
+                const name = `q${pergunta.numero}`;
+                const id = `${name}-${alternativa.item}`;
+                                
+                return `
+                    <input 
+                        type="radio" 
+                        id="${id}" 
+                        name="${name}" 
+                        onclick="responderPergunta('${pergunta.numero}', '${alternativa.item}', '${name}')"
+                        required
+                    >
+                    <label for="${id}">
+                        ${alternativa.item}) ${alternativa.descricao}
+                    </label>
+                    <br>
+                `;
+            }
+
+            async function responderPergunta(numero, item, nameInput)
+            {
+                const perguntas = JSON.parse(localStorage.getItem('perguntas'));
+                const pergunta = perguntas.find(pergunta => pergunta.numero == numero);
+
+                const acerto = pergunta.gabarito === item;              
+                const status = acerto ? '✅ Você acertou :)' : '❌ Você errou :(';
+                document.getElementById(`status-${pergunta.numero}`).innerHTML = status;
+
+                const acertos = parseInt(localStorage.getItem('acertos'));
+                const erros = parseInt(localStorage.getItem('erros'));
+
+                if(acerto) {
+                    localStorage.setItem('acertos', acertos + 1);
+                }
+                else {
+                    localStorage.setItem('erros', erros + 1);
+                }
+
+                const inputs = document.querySelectorAll(`input[name="${nameInput}"]`);
+                inputs.forEach(input => {
+                    input.disabled = true;
+                });
+            }
+
+            async function concluirTeste() 
+            {
+                const acertos = parseInt(localStorage.getItem('acertos'));
+                const total_perguntas = parseInt(localStorage.getItem('total_perguntas'));
+                const nota = Number(((acertos / total_perguntas) * 10).toFixed(2));
+
+                localStorage.setItem('nota', nota);
+
+                goTo('./resultado.html');
+            }
+
+        </script>
+
+        <script src="../assets/js/api.js"></script>
+        <script src="../assets/js/http.js"></script>
+        <script src="../assets/js/loading.js"></script>
+        <script src="../assets/js/router.js"></script>
+
+    </body>
+</html>

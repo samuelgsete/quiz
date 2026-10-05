@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../assets/css/base.css">
+        <link rel="stylesheet" href="../assets/css/resultado.css">
+        <title>Resultado do Quiz</title>
+    </head>
+    <body onload="init()">
+        <section>
+            <img src="../assets/img/logo.png" alt="Logotipo" width="200px"> 
+            <h1 id="competidor">Competidor</h1>
+            <p>Esse foi o seu desempenho &#128200;</p>
+        
+            <table>
+                <tr>
+                    <th>Acertos</th>
+                    <td id="acertos">0</td>
+                </tr>
+                <tr>
+                    <th>Erros</th>
+                    <td id="erros">0</td>
+                </tr>
+                <tr class="contrast">
+                    <th>Média final</th>
+                    <td id="nota">0.00</td>
+                </tr>
+            </table>
+
+            <button class="btn btn-outline" type="button" onclick="goTo('./ranking.html')">Ver ranking</button>
+            <button class="btn btn-primary" type="button" onclick="sair()">Sair</button>
+
+        </section>
+
+        <script>
+
+            async function init() 
+            {
+                const aluno = JSON.parse(localStorage.getItem('aluno'));
+                const acertos = localStorage.getItem('acertos');
+                const erros = localStorage.getItem('erros');
+                const nota = localStorage.getItem('nota') || 0.00;
+
+                document.getElementById('competidor').innerText = aluno.nome;
+                document.getElementById('acertos').innerText = acertos;
+                document.getElementById('erros').innerText = erros;
+                document.getElementById('nota').innerText = nota;
+
+                const id_quiz = localStorage.getItem('id_teste');
+                
+                const competidor = {
+                    nome: aluno.nome,
+                    turma: aluno.turma,
+                    nota: Number(nota),
+                    id_quiz: id_quiz
+                }
+
+                const quiz = await carregarQuiz();
+                quiz.ranking.push(competidor);
+             
+                const ok = await runPut(`quiz/${id_quiz}`, quiz);
+                
+                if(!ok) {
+                    alert('Deu ruim :( Tente novamente!');
+                    return;
+                }
+
+            }
+            
+        </script>
+
+        <script src="../assets/js/api.js"></script>
+        <script src="../assets/js/http.js"></script>
+        <script src="../assets/js/loading.js"></script>
+        <script src="../assets/js/router.js"></script>
+        <script src="../assets/js/shared.js"></script>
+        
+    </body>
+</html>

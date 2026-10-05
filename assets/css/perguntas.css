@@ -4,11 +4,17 @@ section {
     width: 500px;
     padding: 30px 50px;
     background-color: #ffff;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
 
 h1 {
     font-size: 24px;
-    margin: 12px 0 24px;
+    margin: 4px 0;
+}
+
+hr {
+    margin: 10px 0 25px;
 }
 
 main {

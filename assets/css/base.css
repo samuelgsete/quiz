@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 @import url('./cores.css');
+@import url('./loading.css');
 
 * {
     margin: 0;
@@ -11,13 +12,13 @@
 body {
     display: flex;
     justify-content: center;
-    background-color: var(--laranja-escuro-3);
+    background-color: var(--preto);
 }
 
 button.btn {
     width: 100%;
     padding: 16px 0;
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.4s;
@@ -73,7 +74,15 @@ button.btn-icon:hover {
     filter: brightness(95%);
 }
 
+button:disabled {
+    pointer-events: none;
+    background-color: var(--cinza-2);
+    color: #3d3b3b;
+    border: 2px solid var(--cinza-2);
+}
+
 .form-field {
+    position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -99,6 +108,18 @@ button.btn-icon:hover {
     transition: all 0.4s;
 }
 
+select {
+    all: unset;
+}
+
+.form-field > select + span.icon {
+    color: var(--laranja-claro-1);
+    font-weight: 700;
+    position: absolute;
+    right: 4px;
+    top: 20px;
+}
+
 .form-field > input:focus, .form-field > select:focus {
     outline: none;
     border-color:var(--laranja);
@@ -109,6 +130,7 @@ button.btn-icon:hover {
     font-weight: 600;
     margin: 8px 0 0 8px;
     color: var(--laranja-escuro-3);
+    text-align: left;
 }
 
 .form-field-checkbox {
@@ -155,4 +177,45 @@ button.btn-icon:hover {
     font-size: 18px;
     padding: 4px;
     border-bottom: 4px solid var(--laranja);
+}
+
+table {
+    width: 400px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+}
+
+table th,
+table td {
+    padding: 16px 20px;
+    font-size: 1rem;
+}
+
+table th {
+    text-align: left;
+    width: 65%;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+table td {
+    text-align: center;
+    font-size: 17px;
+}
+
+table tr {
+    border-bottom: 1px solid #d44b21;
+}
+
+tr.contrast {
+    background-color: #e28a6f3b;
+}
+
+tr:last-child {
+    border-bottom: none;
 }

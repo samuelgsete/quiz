@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+        <link rel="stylesheet" href="../assets/css/base.css">
+        <link rel="stylesheet" href="../assets/css/formulario.css">
+        <title>Editar Quiz</title>
+    </head>
+    <body onload="preencherFormulario()">
+
+        <section>
+
+            <img id="home" src="../assets/img/logo.png" alt="Logotipo" width="200px">        
+            <h1>Editar Quiz</h1>
+            <p>Edite o seu Quiz</p>
+
+            <form name="cadastro" method="POST">
+
+                <input type="hidden" name="id" readonly>
+
+                <div class="form-field">
+                    <label for="titulo">Título:</label>
+                    <input id="titulo" type="text" name="titulo" placeholder="Ex: Matemática básica" maxlength="50" required>
+                </div>
+
+               <div class="form-field">
+                    <label for="ativo">Ativar?</label>
+                    <select id="ativo" name="ativo" required>
+                         <option value="">selecione...</option>
+                        <option value="true">SIM</option>
+                        <option value="false">NÃO</option>
+                    </select>
+                    <span class="icon material-symbols-outlined">
+                        expand_more
+                    </span>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Salvar</button>
+                <button class="btn btn-light" type="button" onclick="goTo('perguntas.html')">
+                    Ver perguntas
+                </button>
+                <button class="btn btn-outline" type="button" onclick="goTo('listar.html')">
+                    Ver testes
+                </button>
+
+            </form>
+            
+        </section>
+
+        <script>
+            
+            const form = document.forms['cadastro'];
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+               const { id, titulo, ativo } = form;
+
+                const novoQuiz = { 
+                    titulo: titulo.value.trim(),
+                    ativo: ativo.value === 'true'
+                }
+
+                const ok = await runPut(`quiz/${id.value}`, novoQuiz);
+             
+                if(!ok) {
+                    alert('Deu ruim :( Tente novamente!');
+                    return;
+                }
+
+                alert('Perfeito :) Tudo ok!');
+                reload();
+            });
+
+            async function carregarQuiz() {
+                const id_quiz = localStorage.getItem('id_quiz');
+                return await runGet(`quiz/${id_quiz}`);                                         
+            }
+
+            async function preencherFormulario()
+            {
+                const quiz = await carregarQuiz();
+           
+                const form = document.forms['cadastro'];
+                props = ['id', 'titulo', 'ativo'];
+                props.forEach(campo => {
+                    form.elements[campo].value = String(quiz[campo]);
+                });
+            }
+
+        </script>
+
+        <script src="../assets/js/api.js"></script>
+        <script src="../assets/js/http.js"></script>
+        <script src="../assets/js/loading.js"></script>
+        <script src="../assets/js/router.js"></script>
+        
+    </body>
+</html>

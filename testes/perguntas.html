@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+        <link rel="stylesheet" href="../assets/css/base.css">
+        <link rel="stylesheet" href="../assets/css/perguntas.css">
+        <title>Todas as perguntas</title>
+    </head>
+    <body onload="carregarPerguntas()">
+
+        <section>
+            <img id="home" src="../assets/img/logo.png" alt="Logotipo" width="200px"> 
+            <h1>Todas as perguntas</h1>
+            <p></p>
+            <hr>
+        
+            <main>
+                <ul id="perguntas"></ul>
+                <button class="btn btn-outline" type="button" onclick="novaPergunta()">Nova pergunta</button>
+            </main>
+
+        </section>
+
+        <script>
+
+            async function carregarQuiz()
+            {
+                const id_quiz = localStorage.getItem('id_quiz');
+                return await runGet(`quiz/${id_quiz}`);
+            }
+            
+            async function carregarPerguntas() 
+            {                               
+                const quiz = await carregarQuiz();
+
+                const p = document.querySelector('p');
+                p.innerText = quiz.titulo;
+
+                const perguntas = quiz.perguntas;
+                renderizarPerguntas(perguntas);
+            }
+            
+            function renderizarPerguntas(perguntas)
+            {
+                const html = perguntas.map(pergunta => {
+                    return `
+                        <li>
+                            <p><strong>${pergunta.numero}</strong>. ${pergunta.enunciado}</p>
+                            ${pergunta.alternativas.map(alternativa => {
+                                const gabarito = pergunta.gabarito == alternativa.item ? "gabarito" : "";
+                                return `
+                                    <div class="${gabarito}">${alternativa.item}) ${alternativa.descricao}</div>
+                                `;
+                            }).join("")}
+                            <button class="btn-icon" type="button" onclick="irParaEditar('${pergunta.numero}')">
+                                <span class="material-symbols-outlined">edit</span>
+                            </button>
+                            <button class="btn-icon" type="button" onclick="remover('${pergunta.numero}')">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                        </li>
+                    `;
+                }).join("");
+
+                document.getElementById('perguntas').innerHTML = html || 'Nenhuma pergunta registrada :(';
+            }
+
+            function irParaEditar(numero)
+            {
+                localStorage.setItem('numero_pergunta', numero);
+                window.location.href = 'editar-pergunta.html';
+            }
+
+            async function remover(numero)
+            {
+                if(confirm('Tem certeza que deseja excluir?')) {
+                    const quiz = await carregarQuiz();
+                    const perguntas = quiz.perguntas.filter(pergunta => pergunta.numero != numero)
+                    quiz.perguntas = perguntas;
+
+                    const ok = await runPut(`quiz/${quiz.id}`, quiz);
+                
+                    if(!ok) {
+                        alert('Deu ruim :( Tente novamente!');
+                        return;
+                    }
+
+                    alert('Perfeito :) a exclusão foi concluída!');
+                    carregarPerguntas();
+                }
+            }
+
+            function novaPergunta()
+            {
+                goTo('nova-pergunta.html');
+            }
+
+        </script>
+
+        <script src="../assets/js/api.js"></script>
+        <script src="../assets/js/http.js"></script>
+        <script src="../assets/js/loading.js"></script>
+        <script src="../assets/js/router.js"></script>
+
+    </body>
+</html>

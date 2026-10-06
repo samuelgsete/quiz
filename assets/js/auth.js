@@ -2,7 +2,7 @@ const aluno = JSON.parse(localStorage.getItem('aluno'));
 
 if(!aluno) {
     alert('Faça login para continuar');
-    window.location.href = '../../index.html';
+    window.location.href = '../index.html';
 }
 
 const sair = () => {

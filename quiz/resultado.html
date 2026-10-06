@@ -37,12 +37,15 @@
 
             async function init() 
             {
-                const aluno = JSON.parse(localStorage.getItem('aluno'));
+                const h1 = document.getElementById('competidor');
+                h1.textContent = getUsuario();
+
+                const aluno = getAluno();
+
                 const acertos = localStorage.getItem('acertos');
                 const erros = localStorage.getItem('erros');
                 const nota = localStorage.getItem('nota') || 0.00;
 
-                document.getElementById('competidor').innerText = aluno.nome;
                 document.getElementById('acertos').innerText = acertos;
                 document.getElementById('erros').innerText = erros;
                 document.getElementById('nota').innerText = nota;
@@ -57,15 +60,38 @@
                 }
 
                 const quiz = await carregarQuiz();
-                quiz.ranking.push(competidor);
-             
+                const ranking = quiz.ranking;
+                
+                const jaExiste = ranking.some(aluno => {
+                    return (
+                        aluno.nome == competidor.nome &&
+                        aluno.turma == competidor.turma &&
+                        aluno.id_quiz == competidor.id_quiz
+                    )
+                });
+                
+                if(jaExiste) {
+                    ranking.map(aluno => {
+                        if (
+                            aluno.nome == competidor.nome &&
+                            aluno.turma == competidor.turma &&
+                            aluno.id_quiz == competidor.id_quiz
+                        ) 
+                        {
+                            aluno.nota = competidor.nota;
+                        }
+                    });
+                }
+                else {
+                    ranking.push(competidor);
+                }
+                                         
                 const ok = await runPut(`quiz/${id_quiz}`, quiz);
                 
                 if(!ok) {
                     alert('Deu ruim :( Tente novamente!');
                     return;
                 }
-
             }
             
         </script>
@@ -75,6 +101,7 @@
         <script src="../assets/js/loading.js"></script>
         <script src="../assets/js/router.js"></script>
         <script src="../assets/js/shared.js"></script>
+        <script src="../assets/js/auth.js"></script>
         
     </body>
 </html>

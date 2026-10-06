@@ -5,19 +5,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../assets/css/base.css">
         <link rel="stylesheet" href="../assets/css/quiz.css">
-        <title>Boa sorte :)</title>
+        <title>Boa sorte competidor(a) :)</title>
     </head>
     <body onload="init()">
 
         <section>
             <img src="../assets/img/logo.png" alt="Logotipo" width="200px"> 
-            <p>Boa sorte <strong id="competidor">Competidor</strong>&#x1F340;</p>
+            <p>Boa sorte <strong id="competidor">Competidor(a)</strong>&#x1F340;</p>
             <h1 id="titulo">Carregando...</h1>
             <form name="quiz" method="POST">
                 <div id="quiz">
                     <span>Carregando...</span>
                 </div>
                 <button class="btn btn-outline" type="submit">Concluir Teste</button>
+                <button class="btn btn-primary" type="button" onclick="sair()">Sair</button>
             </form>
 
         </section>
@@ -32,6 +33,9 @@
 
             async function init()
             {
+                const strong = document.querySelector('#competidor');
+                strong.textContent = getUsuario();
+
                 const quiz = await carregarQuiz();
 
                 const h1 = document.querySelector('#titulo');
@@ -43,12 +47,6 @@
                 localStorage.setItem('acertos', 0)
                 localStorage.setItem('erros', 0)
                 renderizarQuiz(perguntas);
-            }
-
-            async function carregarQuiz() 
-            {                              
-                const id_quiz = localStorage.getItem('id_teste');                 
-                return await runGet(`quiz/${id_quiz}`);
             }
             
             function renderizarQuiz(perguntas) {
@@ -133,6 +131,8 @@
         <script src="../assets/js/http.js"></script>
         <script src="../assets/js/loading.js"></script>
         <script src="../assets/js/router.js"></script>
+        <script src="../assets/js/shared.js"></script>
+        <script src="../assets/js/auth.js"></script>
 
     </body>
 </html>

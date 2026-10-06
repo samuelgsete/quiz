@@ -12,8 +12,8 @@
 
         <section>
 
-            <img src="../assets/img/logo.png" alt="Logotipo" width="200px">        
-            <h1>Selecione um quiz</h1>
+            <img src="../assets/img/logo.png" alt="Logotipo" width="200px">
+            <h2>Bem-vindo(a) <span></span></h2>     
             <p>Selecione um quiz para começar</p>
 
             <form name="quiz" method="POST">
@@ -47,17 +47,15 @@
 
             async function carregarTestes()
             {
+                const span = document.querySelector('h2 > span');
+                span.textContent = getUsuario();
+                
                 const select = document.querySelector('select');
                 let testes = await runGet('quiz');
                 
-                testes = testes
-                .map(teste => {
-                    teste.ativo = teste.ativo == 'true';
-                    teste.id = Number(teste.id);
-                    return teste;
-                })
-                .forEach(teste => {
+                testes.forEach(teste => {
                     const option = document.createElement('option');
+                    console.log(teste.ativo);
                     option.value = teste.id;
                     option.innerHTML = teste.titulo;
                     option.disabled = !teste.ativo;
@@ -72,6 +70,7 @@
         <script src="../assets/js/loading.js"></script>
         <script src="../assets/js/router.js"></script>
         <script src="../assets/js/shared.js"></script>
+        <script src="../assets/js/auth.js"></script>
         
     </body>
 </html>

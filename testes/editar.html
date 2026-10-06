@@ -73,15 +73,10 @@
                 reload();
             });
 
-            async function carregarQuiz() {
-                const id_quiz = localStorage.getItem('id_quiz');
-                return await runGet(`quiz/${id_quiz}`);                                         
-            }
-
             async function preencherFormulario()
             {
                 const quiz = await carregarQuiz();
-           
+                           
                 const form = document.forms['cadastro'];
                 props = ['id', 'titulo', 'ativo'];
                 props.forEach(campo => {
@@ -95,6 +90,7 @@
         <script src="../assets/js/http.js"></script>
         <script src="../assets/js/loading.js"></script>
         <script src="../assets/js/router.js"></script>
+        <script src="../assets/js/shared.js"></script>
         
     </body>
 </html>

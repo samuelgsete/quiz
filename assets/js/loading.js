@@ -1,7 +1,10 @@
 const div = document.createElement('div');
+
+const spinnerSrc = new URL('../img/loading.png', document.currentScript.src).href;
+
 div.innerHTML = `
     <div id="spinner" class="hide">
-        <img class="loading" src="../img/loading.png" alt="Spinner Loading">
+        <img class="loading" src="${spinnerSrc}" alt="Spinner Loading">
     </div>
 `;
 

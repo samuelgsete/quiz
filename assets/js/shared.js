@@ -1,5 +1,5 @@
 const carregarQuiz = async () => {
-    const id_quiz = localStorage.getItem('id_quiz');
+    const id_quiz = localStorage.getItem('id_teste');
     const quiz = await runGet(`quiz/${id_quiz}`);
     return quiz;
 }

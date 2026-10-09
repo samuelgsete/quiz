@@ -1,7 +1,7 @@
 const div = document.createElement('div');
 div.innerHTML = `
     <div id="spinner" class="hide">
-        <img class="loading" src="../assets/img/loading.png" alt="Spinner Loading">
+        <img class="loading" src="../img/loading.png" alt="Spinner Loading">
     </div>
 `;
 

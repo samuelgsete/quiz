@@ -55,7 +55,7 @@
                 
                 testes.forEach(teste => {
                     const option = document.createElement('option');
-                    console.log(teste.ativo);
+                    
                     option.value = teste.id;
                     option.innerHTML = teste.titulo;
                     option.disabled = !teste.ativo;

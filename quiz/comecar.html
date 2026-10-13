@@ -36,7 +36,8 @@
                 const strong = document.querySelector('#competidor');
                 strong.textContent = getUsuario();
 
-                const quiz = await carregarQuiz();
+                const id_teste = localStorage.getItem('id_teste');
+                const quiz = await runGet(`quiz/${id_teste}`);
 
                 const h1 = document.querySelector('#titulo');
                 h1.textContent = quiz.titulo;

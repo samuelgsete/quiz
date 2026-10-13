@@ -24,12 +24,6 @@
         </section>
 
         <script>
-
-            async function carregarQuiz()
-            {
-                const id_quiz = localStorage.getItem('id_quiz');
-                return await runGet(`quiz/${id_quiz}`);
-            }
             
             async function carregarPerguntas() 
             {                               
@@ -47,11 +41,11 @@
                 const html = perguntas.map(pergunta => {
                     return `
                         <li>
-                            <p><strong>${pergunta.numero}</strong>. ${pergunta.enunciado}</p>
+                            <p><strong>${pergunta.numero}</strong>. ${escapeHTML(pergunta.enunciado)}</p>
                             ${pergunta.alternativas.map(alternativa => {
                                 const gabarito = pergunta.gabarito == alternativa.item ? "gabarito" : "";
                                 return `
-                                    <div class="${gabarito}">${alternativa.item}) ${alternativa.descricao}</div>
+                                    <div class="${gabarito}">${alternativa.item}) ${escapeHTML(alternativa.descricao)}</div>
                                 `;
                             }).join("")}
                             <button class="btn-icon" type="button" onclick="irParaEditar('${pergunta.numero}')">
@@ -103,6 +97,7 @@
         <script src="../assets/js/http.js"></script>
         <script src="../assets/js/loading.js"></script>
         <script src="../assets/js/router.js"></script>
+        <script src="../assets/js/shared.js"></script>
 
     </body>
 </html>

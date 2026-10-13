@@ -56,7 +56,7 @@
                         <div class="pergunta">
                             <strong>Questão ${pergunta.numero}</strong>
                             <div class="form-field-radio">
-                                <div>${pergunta.enunciado}</div>
+                                <div>${escapeHTML(pergunta.enunciado)}</div>
                                 ${pergunta.alternativas.map((alternativa) => {
                                     return renderizarAlternativa(pergunta, alternativa);     
                                 }).join("")}
@@ -83,7 +83,7 @@
                         required
                     >
                     <label for="${id}">
-                        ${alternativa.item}) ${alternativa.descricao}
+                        ${alternativa.item}) ${escapeHTML(alternativa.descricao)}
                     </label>
                     <br>
                 `;
@@ -94,7 +94,10 @@
                 const perguntas = JSON.parse(localStorage.getItem('perguntas'));
                 const pergunta = perguntas.find(pergunta => pergunta.numero == numero);
 
-                const acerto = pergunta.gabarito === item;              
+                const acerto = pergunta.gabarito === item;
+                
+                acerto ? play('acerto') : play('erro');
+                
                 const status = acerto ? '✅ Você acertou :)' : '❌ Você errou :(';
                 document.getElementById(`status-${pergunta.numero}`).innerHTML = status;
 

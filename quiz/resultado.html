@@ -46,6 +46,10 @@
                 const erros = localStorage.getItem('erros');
                 const nota = localStorage.getItem('nota') || 0.00;
 
+                if (nota >= 9) play('aplausos1');
+                else if (nota >= 7 && nota < 9) play('aplausos2');
+                else if (nota < 7) play('aplausos3');
+
                 document.getElementById('acertos').innerText = acertos;
                 document.getElementById('erros').innerText = erros;
                 document.getElementById('nota').innerText = nota;

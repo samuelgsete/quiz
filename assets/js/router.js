@@ -7,7 +7,8 @@ const reload = () => location.reload();
 const home = document.querySelector('#home');
 
 if(home) {
-    home.addEventListener('click', (e) => {
-        goTo('../../menu.html');
-    })
+
+    const menuSrc = new URL('../../menu.html', document.currentScript.src).href;
+
+    home.addEventListener('click', (e) => { goTo(menuSrc); })
 }

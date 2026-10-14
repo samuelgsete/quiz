@@ -28,7 +28,7 @@
                 </tr>
             </table>
 
-            <button class="btn btn-outline" type="button" onclick="goTo('./ranking.html')">Ver ranking</button>
+            <button class="btn btn-outline" type="button" onclick="verRanking()">Ver ranking</button>
             <button class="btn btn-primary" type="button" onclick="sair()">Sair</button>
 
         </section>
@@ -54,7 +54,7 @@
                 document.getElementById('erros').innerText = erros;
                 document.getElementById('nota').innerText = nota;
 
-                const id_quiz = localStorage.getItem('id_teste');
+                const id_quiz = getQueryParam('id_quiz');
                 
                 const competidor = {
                     nome: aluno.nome,
@@ -63,7 +63,7 @@
                     id_quiz: id_quiz
                 }
 
-                const quiz = await carregarQuiz();
+                const quiz = await runGet(`quiz/${id_quiz}`);
                 const ranking = quiz.ranking;
                 
                 const jaExiste = ranking.some(aluno => {
@@ -96,6 +96,14 @@
                     alert('Deu ruim :( Tente novamente!');
                     return;
                 }
+            }
+
+            function verRanking()
+            {
+                const id_quiz = getQueryParam('id_quiz');
+                const url = new URL('./ranking.html', window.location.href);
+                url.searchParams.set('id_quiz', id_quiz);
+                goTo(url);
             }
             
         </script>

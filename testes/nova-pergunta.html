@@ -95,7 +95,8 @@
                 }
                 
                 const id_quiz = dados.get('id_quiz');
-                const quiz = await carregarQuiz();
+                const quiz = await runGet(`quiz/${id_quiz}`);
+                               
                 quiz.perguntas.push(pergunta);
 
                 const ok = await runPut(`quiz/${id_quiz}`, quiz);
@@ -109,14 +110,10 @@
                 reload();
             });
 
-            async function carregarQuiz() {
-                const id_quiz = localStorage.getItem('id_quiz');
-                return await runGet(`quiz/${id_quiz}`);                                         
-            }
-
             async function configurarFormulario() 
             {
-                const quiz = await carregarQuiz();
+                const id_quiz = getQueryParam('id_quiz');
+                const quiz = await runGet(`quiz/${id_quiz}`);
                                
                 const p = document.querySelector('p');
                 p.textContent = quiz.titulo;
@@ -134,7 +131,10 @@
 
             function verPerguntas()
             {
-                goTo("perguntas.html");
+                const id_quiz = getQueryParam('id_quiz');
+                const url = new URL('perguntas.html', window.location.href);
+                url.searchParams.set('id_quiz', id_quiz);
+                goTo(url);
             }
 
         </script>

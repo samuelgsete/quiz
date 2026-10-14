@@ -75,7 +75,8 @@
 
             async function preencherFormulario()
             {
-                const quiz = await carregarQuiz();
+                const id_quiz = getQueryParam('id_quiz');
+                const quiz = await runGet(`quiz/${id_quiz}`);
                            
                 const form = document.forms['cadastro'];
                 props = ['id', 'titulo', 'ativo'];

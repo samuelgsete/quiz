@@ -18,7 +18,7 @@
         
             <main>
                 <ul id="perguntas"></ul>
-                <button class="btn btn-outline" type="button" onclick="novaPergunta()">Nova pergunta</button>
+                <button class="btn btn-outline" type="button" onclick="goTo('nova-pergunta.html')">Nova pergunta</button>
             </main>
 
         </section>
@@ -27,7 +27,8 @@
             
             async function carregarPerguntas() 
             {                               
-                const quiz = await carregarQuiz();
+                const id_quiz = getQueryParam('id_quiz');
+                const quiz = await runGet(`quiz/${id_quiz}`);
 
                 const p = document.querySelector('p');
                 p.innerText = quiz.titulo;
@@ -64,7 +65,7 @@
             function irParaEditar(numero)
             {
                 localStorage.setItem('numero_pergunta', numero);
-                window.location.href = 'editar-pergunta.html';
+                goTo('editar-pergunta.html');
             }
 
             async function remover(numero)
@@ -84,11 +85,6 @@
                     alert('Perfeito :) a exclusão foi concluída!');
                     carregarPerguntas();
                 }
-            }
-
-            function novaPergunta()
-            {
-                goTo('nova-pergunta.html');
             }
 
         </script>

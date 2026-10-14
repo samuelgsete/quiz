@@ -70,7 +70,7 @@
                 <button class="btn btn-light" type="buttom" onclick="goTo('nova-pergunta.html')">
                     Nova pergunta
                 </button>
-                <button class="btn btn-outline" type="button" onclick="verPerguntas()">Ver perguntas</button>
+                <button class="btn btn-outline" type="button" onclick="goTo('perguntas.html')">Ver perguntas</button>
             </form>
             
         </section>
@@ -134,8 +134,9 @@
                 const numero_pergunta = localStorage.getItem('numero_pergunta');
                 if(numero_pergunta == undefined) { goTo('perguntas.html') }
 
-                const quiz = await carregarQuiz();
-                                               
+                const id_quiz = getQueryParam('id_quiz');
+                const quiz = await runGet(`quiz/${id_quiz}`);
+
                 const p = document.querySelector('p');
                 p.textContent = quiz.titulo;
 
@@ -154,12 +155,7 @@
                 formPergunta.itemC.value = pergunta.alternativas[2].descricao;
                 formPergunta.itemD.value = pergunta.alternativas[3].descricao;
             }
-
-            function verPerguntas()
-            {
-                goTo("perguntas.html");
-            }
-
+            
         </script>
 
         <script src="../assets/js/api.js"></script>

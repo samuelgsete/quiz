@@ -67,10 +67,10 @@
                 }
             }
 
-            async function irParaEditar(id)
+            function irParaEditar(id)
             {
-                localStorage.setItem('id_quiz', id);
-                goTo('editar.html');
+                const url = `editar.html?id_quiz=${id}`;
+                goTo(url, false);
             }
 
             function novoAluno()

@@ -39,10 +39,10 @@
                 e.preventDefault();
 
                 const { id_teste } = form;
-                
-                localStorage.setItem('id_teste', id_teste.value);
 
-                goTo('comecar.html');
+                const url = new URL('comecar.html', window.location.href);
+                url.searchParams.set('id_quiz', id_teste.value);
+                goTo(url);
             });
 
             async function carregarTestes()

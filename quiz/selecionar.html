@@ -42,7 +42,7 @@
 
                 const url = new URL('comecar.html', window.location.href);
                 url.searchParams.set('id_quiz', id_teste.value);
-                goTo(url);
+                goTo(url, false);
             });
 
             async function carregarTestes()
